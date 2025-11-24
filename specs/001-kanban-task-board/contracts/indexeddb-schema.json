@@ -1,0 +1,270 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "Kanban Task Board - IndexedDB Schema",
+  "description": "IndexedDB database schema for the Kanban Task Board application",
+  "version": "1.0.0",
+  "database": {
+    "name": "kanban-board",
+    "version": 1,
+    "description": "Client-side database for storing Kanban tasks"
+  },
+  "objectStores": [
+    {
+      "name": "tasks",
+      "keyPath": "id",
+      "autoIncrement": false,
+      "description": "Stores all task records with their complete data",
+      "indexes": [
+        {
+          "name": "status",
+          "keyPath": "status",
+          "unique": false,
+          "multiEntry": false,
+          "description": "Index for filtering tasks by workflow status"
+        },
+        {
+          "name": "createdAt",
+          "keyPath": "createdAt",
+          "unique": false,
+          "multiEntry": false,
+          "description": "Index for sorting tasks by creation date"
+        }
+      ]
+    }
+  ],
+  "entities": {
+    "Task": {
+      "description": "Represents a user task in the Kanban board",
+      "properties": {
+        "id": {
+          "type": "string",
+          "description": "Unique identifier (UUID v4 or crypto.randomUUID())",
+          "required": true,
+          "example": "550e8400-e29b-41d4-a716-446655440000"
+        },
+        "title": {
+          "type": "string",
+          "description": "Short task title",
+          "required": true,
+          "minLength": 1,
+          "maxLength": 500,
+          "example": "Implement user login"
+        },
+        "description": {
+          "type": "string",
+          "description": "Detailed task description",
+          "required": true,
+          "minLength": 1,
+          "maxLength": 2000,
+          "example": "Create login form with email and password fields, integrate with authentication API"
+        },
+        "status": {
+          "type": "string",
+          "description": "Current workflow status",
+          "required": true,
+          "enum": ["todo", "doing", "done"],
+          "default": "todo",
+          "example": "doing"
+        },
+        "createdAt": {
+          "type": "number",
+          "description": "Creation timestamp (Unix milliseconds)",
+          "required": true,
+          "format": "unix-timestamp-ms",
+          "example": 1700000000000
+        },
+        "updatedAt": {
+          "type": "number",
+          "description": "Last modification timestamp (Unix milliseconds)",
+          "required": true,
+          "format": "unix-timestamp-ms",
+          "example": 1700000060000
+        }
+      },
+      "futureExtensions": {
+        "description": "Planned optional fields for future versions (v2+)",
+        "properties": {
+          "color": {
+            "type": "string",
+            "description": "Custom card color (hex code)",
+            "version": "2.0.0",
+            "optional": true,
+            "pattern": "^#[0-9A-Fa-f]{6}$",
+            "example": "#FFE0B2"
+          },
+          "labels": {
+            "type": "array",
+            "description": "Task labels/tags",
+            "version": "3.0.0",
+            "optional": true,
+            "items": {
+              "type": "string"
+            },
+            "example": ["urgent", "frontend"]
+          }
+        }
+      }
+    }
+  },
+  "operations": {
+    "create": {
+      "description": "Add a new task to the database",
+      "input": {
+        "title": "string (required, 1-500 chars)",
+        "description": "string (required, 1-2000 chars)"
+      },
+      "output": "Complete Task object with generated id, status='todo', and timestamps",
+      "errors": [
+        "ValidationError: Missing or invalid title/description",
+        "StorageError: IndexedDB operation failed"
+      ]
+    },
+    "read": {
+      "description": "Retrieve task(s) from the database",
+      "variants": [
+        {
+          "name": "getTask",
+          "input": "id: string",
+          "output": "Task object or undefined",
+          "errors": ["StorageError: IndexedDB operation failed"]
+        },
+        {
+          "name": "getAllTasks",
+          "input": "none",
+          "output": "Array<Task>",
+          "errors": ["StorageError: IndexedDB operation failed"]
+        },
+        {
+          "name": "getTasksByStatus",
+          "input": "status: 'todo' | 'doing' | 'done'",
+          "output": "Array<Task>",
+          "errors": ["StorageError: IndexedDB operation failed"]
+        }
+      ]
+    },
+    "update": {
+      "description": "Modify an existing task",
+      "input": {
+        "id": "string (required)",
+        "title": "string (optional, 1-500 chars if provided)",
+        "description": "string (optional, 1-2000 chars if provided)",
+        "status": "string (optional, 'todo'|'doing'|'done' if provided)"
+      },
+      "output": "Updated Task object with new updatedAt timestamp",
+      "errors": [
+        "NotFoundError: Task not found",
+        "ValidationError: Invalid field values",
+        "StorageError: IndexedDB operation failed"
+      ]
+    },
+    "delete": {
+      "description": "Remove a task from the database",
+      "input": "id: string",
+      "output": "void",
+      "errors": [
+        "NotFoundError: Task not found",
+        "StorageError: IndexedDB operation failed"
+      ]
+    },
+    "move": {
+      "description": "Change task status (convenience wrapper for update)",
+      "input": {
+        "id": "string (required)",
+        "newStatus": "'todo' | 'doing' | 'done' (required)"
+      },
+      "output": "Updated Task object with new status and updatedAt",
+      "errors": [
+        "NotFoundError: Task not found",
+        "ValidationError: Invalid status",
+        "StorageError: IndexedDB operation failed"
+      ]
+    }
+  },
+  "sampleData": [
+    {
+      "id": "550e8400-e29b-41d4-a716-446655440000",
+      "title": "Design Kanban board layout",
+      "description": "Create wireframes for the three-column Kanban board with task cards",
+      "status": "done",
+      "createdAt": 1699900000000,
+      "updatedAt": 1699950000000
+    },
+    {
+      "id": "660e8400-e29b-41d4-a716-446655440001",
+      "title": "Implement drag and drop",
+      "description": "Add button-based movement for tasks between columns",
+      "status": "doing",
+      "createdAt": 1700000000000,
+      "updatedAt": 1700010000000
+    },
+    {
+      "id": "770e8400-e29b-41d4-a716-446655440002",
+      "title": "Add task counter",
+      "description": "Display real-time count of tasks in each status column",
+      "status": "todo",
+      "createdAt": 1700100000000,
+      "updatedAt": 1700100000000
+    }
+  ],
+  "migrations": {
+    "v1": {
+      "description": "Initial schema - basic task management",
+      "changes": [
+        "Create 'tasks' object store with 'id' as keyPath",
+        "Add 'status' index for filtering",
+        "Add 'createdAt' index for sorting"
+      ]
+    },
+    "v2": {
+      "description": "Planned - Add custom colors support",
+      "changes": [
+        "Add optional 'color' field to Task entity",
+        "No database migration needed (optional field)"
+      ],
+      "implemented": false
+    },
+    "v3": {
+      "description": "Planned - Add labels/tags support",
+      "changes": [
+        "Add optional 'labels' array field to Task entity",
+        "Create 'labels' multiEntry index",
+        "No data migration needed (optional field)"
+      ],
+      "implemented": false
+    }
+  },
+  "constraints": {
+    "capacity": {
+      "recommendedMaxTasks": 100,
+      "description": "Application tested and optimized for up to 100 concurrent tasks"
+    },
+    "storage": {
+      "estimatedSizePerTask": "~300 bytes",
+      "estimatedTotalFor100Tasks": "~30KB",
+      "indexedDBQuota": "At least 50MB available in all modern browsers"
+    },
+    "performance": {
+      "queryTime": "<50ms for typical queries (100 tasks)",
+      "writeTime": "<100ms for single task operations"
+    }
+  },
+  "errorHandling": {
+    "retryStrategy": {
+      "maxRetries": 3,
+      "backoffMs": 1000,
+      "description": "Critical operations retry up to 3 times with 1s delay"
+    },
+    "timeoutMs": 5000,
+    "description": "All operations timeout after 5 seconds"
+  },
+  "compatibility": {
+    "browsers": {
+      "chrome": ">=90",
+      "firefox": ">=88",
+      "safari": ">=14",
+      "edge": ">=90"
+    },
+    "indexedDBVersion": "2.0 (with binary keys support)",
+    "notes": "95%+ browser coverage with IndexedDB support"
+  }
+}
