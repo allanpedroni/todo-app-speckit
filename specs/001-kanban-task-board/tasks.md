@@ -131,16 +131,16 @@ Tasks marcadas com `[P]` podem ser executadas em paralelo quando não dependem d
 
 ### Tasks
 
-- [ ] T034 [US2] Create TaskCard component in src/components/TaskCard.tsx (displays task title, description, and action buttons)
-- [ ] T035 [US2] Style TaskCard with status-based colors (todo-bg for 'todo', doing-bg/done-bg for 'doing'/'done')
-- [ ] T036 [US2] Create TaskForm component in src/components/TaskForm.tsx (controlled form with title and description inputs)
-- [ ] T037 [US2] Implement form validation in TaskForm (title and description required, show error messages)
-- [ ] T038 [US2] Create "Add Task" button in KanbanBoard component (opens TaskForm dialog)
-- [ ] T039 [US2] Integrate TaskForm with shadcn/ui Dialog component for modal display
-- [ ] T040 [US2] Connect TaskForm submit to useTasks createTask function in KanbanBoard
-- [ ] T041 [US2] Update KanbanColumn to render TaskCard components for tasks in that status
-- [ ] T042 [US2] Update TaskCounters to display correct counts from useTasks state
-- [ ] T043 [US2] Implement optimistic UI updates (add task to state immediately, rollback on error)
+- [X] T034 [US2] Create TaskCard component in src/components/TaskCard.tsx (displays task title, description, and action buttons)
+- [X] T035 [US2] Style TaskCard with status-based colors (todo-bg for 'todo', doing-bg/done-bg for 'doing'/'done')
+- [X] T036 [US2] Create TaskForm component in src/components/TaskForm.tsx (controlled form with title and description inputs)
+- [X] T037 [US2] Implement form validation in TaskForm (title and description required, show error messages)
+- [X] T038 [US2] Create "Add Task" button in KanbanBoard component (opens TaskForm dialog)
+- [X] T039 [US2] Integrate TaskForm with shadcn/ui Dialog component for modal display
+- [X] T040 [US2] Connect TaskForm submit to useTasks createTask function in KanbanBoard
+- [X] T041 [US2] Update KanbanColumn to render TaskCard components for tasks in that status
+- [X] T042 [US2] Update TaskCounters to display correct counts from useTasks state
+- [X] T043 [US2] Implement optimistic UI updates (add task to state immediately, rollback on error)
 
 **Acceptance Criteria** (from spec.md):
 
@@ -171,10 +171,10 @@ Tasks marcadas com `[P]` podem ser executadas em paralelo quando não dependem d
 
 ### Tasks
 
-- [ ] T044 [US6] Update useTasks hook to load tasks from IndexedDB on mount (useEffect with getAllTasks)
-- [ ] T045 [US6] Ensure createTask in useTasks persists to IndexedDB via db.createTask
-- [ ] T046 [US6] Add error handling and loading states in useTasks (loading, error state management)
-- [ ] T047 [US6] Display loading spinner in KanbanBoard while tasks are being loaded
+- [X] T044 [US6] Update useTasks hook to load tasks from IndexedDB on mount (useEffect with getAllTasks)
+- [X] T045 [US6] Ensure createTask in useTasks persists to IndexedDB via db.createTask
+- [X] T046 [US6] Add error handling and loading states in useTasks (loading, error state management)
+- [X] T047 [US6] Display loading spinner in KanbanBoard while tasks are being loaded
 
 **Acceptance Criteria** (from spec.md):
 
