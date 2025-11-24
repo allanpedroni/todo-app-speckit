@@ -96,7 +96,7 @@ export function KanbanBoard() {
   }
 
   return (
-    <div className="h-screen flex flex-col px-4 py-6 max-w-7xl mx-auto">
+    <div className="h-screen flex flex-col px-4 py-6 max-w-7xl mx-auto overflow-hidden">
       {/* Title */}
       <h1 className="text-4xl font-bold text-center mb-6 text-foreground flex-shrink-0">TO-DO</h1>
 

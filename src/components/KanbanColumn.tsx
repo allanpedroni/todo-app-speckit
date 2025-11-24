@@ -28,7 +28,7 @@ export function KanbanColumn({ title, status, children }: KanbanColumnProps) {
   }[status]
 
   return (
-    <div className={cn('flex flex-col rounded-lg border h-full', borderColor, bgColor, 'p-4')}>
+    <div className={cn('flex flex-col rounded-lg border h-full min-h-0', borderColor, bgColor, 'p-4')}>
       <h2 className="text-xl font-bold mb-4 text-foreground flex-shrink-0">{title}</h2>
       <Droppable droppableId={status}>
         {(provided, snapshot) => (
@@ -36,7 +36,7 @@ export function KanbanColumn({ title, status, children }: KanbanColumnProps) {
             ref={provided.innerRef}
             {...provided.droppableProps}
             className={cn(
-              'flex flex-col gap-3 flex-1 rounded-md transition-colors p-2 -m-2 overflow-y-auto',
+              'flex flex-col gap-3 flex-1 min-h-0 rounded-md transition-colors p-2 overflow-y-auto',
               snapshot.isDraggingOver && 'bg-primary/5 ring-2 ring-primary/20'
             )}
           >
