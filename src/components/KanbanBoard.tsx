@@ -96,27 +96,29 @@ export function KanbanBoard() {
   }
 
   return (
-    <div className="container mx-auto px-4 py-8 max-w-7xl">
+    <div className="h-screen flex flex-col px-4 py-6 max-w-7xl mx-auto">
       {/* Title */}
-      <h1 className="text-4xl font-bold text-center mb-8 text-foreground">TO-DO</h1>
+      <h1 className="text-4xl font-bold text-center mb-6 text-foreground flex-shrink-0">TO-DO</h1>
 
       {/* Add Task Button */}
-      <div className="flex justify-center mb-6">
+      <div className="flex justify-center mb-4 flex-shrink-0">
         <Button onClick={() => setIsFormOpen(true)} size="lg">
           Add Task
         </Button>
       </div>
 
       {/* Task Counters */}
-      <TaskCounters
-        todoCount={getTodoCount()}
-        doingCount={getDoingCount()}
-        doneCount={getDoneCount()}
-      />
+      <div className="flex-shrink-0">
+        <TaskCounters
+          todoCount={getTodoCount()}
+          doingCount={getDoingCount()}
+          doneCount={getDoneCount()}
+        />
+      </div>
 
       {/* Kanban Columns with Drag and Drop */}
       <DragDropContext onDragEnd={handleDragEnd}>
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 flex-1 min-h-0">
           <KanbanColumn title="To Do" status="todo">
             {todoTasks.length === 0 ? (
               <p className="text-muted-foreground text-center mt-8">No tasks yet</p>
