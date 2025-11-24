@@ -199,13 +199,13 @@ Tasks marcadas com `[P]` podem ser executadas em paralelo quando não dependem d
 
 ### Tasks
 
-- [ ] T048 [US3] Add "Move to Doing" and "Move to Done" buttons to TaskCard component (conditional rendering based on current status)
-- [ ] T049 [US3] Add "Move to To Do" and "Move to Doing" buttons for backward movement (conditional rendering)
-- [ ] T050 [US3] Connect move buttons to useTasks moveTask function in TaskCard
-- [ ] T051 [US3] Update TaskCard color dynamically based on task.status (todo → yellow, doing/done → green)
-- [ ] T052 [US3] Ensure counters update correctly after task movement (via useTasks state)
-- [ ] T053 [US3] Implement optimistic UI updates for task movement (move in state immediately, rollback on error)
-- [ ] T054 [US3] Update useTasks moveTask to persist changes to IndexedDB via db.moveTask
+- [X] T048 [US3] Add "Move to Doing" and "Move to Done" buttons to TaskCard component (conditional rendering based on current status)
+- [X] T049 [US3] Add "Move to To Do" and "Move to Doing" buttons for backward movement (conditional rendering)
+- [X] T050 [US3] Connect move buttons to useTasks moveTask function in TaskCard
+- [X] T051 [US3] Update TaskCard color dynamically based on task.status (todo → yellow, doing/done → green)
+- [X] T052 [US3] Ensure counters update correctly after task movement (via useTasks state)
+- [X] T053 [US3] Implement optimistic UI updates for task movement (move in state immediately, rollback on error)
+- [X] T054 [US3] Update useTasks moveTask to persist changes to IndexedDB via db.moveTask
 
 **Acceptance Criteria** (from spec.md):
 
@@ -234,14 +234,14 @@ Tasks marcadas com `[P]` podem ser executadas em paralelo quando não dependem d
 
 ### Tasks
 
-- [ ] T055 [US4] Add "Edit" button to TaskCard component (icon or text button)
-- [ ] T056 [US4] Create TaskEditForm component (similar to TaskForm but pre-filled with existing task data)
-- [ ] T057 [US4] Implement form validation in TaskEditForm (title and description required, empty validation)
-- [ ] T058 [US4] Integrate TaskEditForm with shadcn/ui Dialog component
-- [ ] T059 [US4] Connect TaskEditForm submit to useTasks updateTask function
-- [ ] T060 [US4] Add "Cancel" button to TaskEditForm (close dialog without saving)
-- [ ] T061 [US4] Update useTasks updateTask to persist changes to IndexedDB via db.updateTask
-- [ ] T062 [US4] Implement optimistic UI updates for task edit
+- [X] T055 [US4] Add "Edit" button to TaskCard component (icon or text button)
+- [X] T056 [US4] Create TaskEditForm component (similar to TaskForm but pre-filled with existing task data)
+- [X] T057 [US4] Implement form validation in TaskEditForm (title and description required, empty validation)
+- [X] T058 [US4] Integrate TaskEditForm with shadcn/ui Dialog component
+- [X] T059 [US4] Connect TaskEditForm submit to useTasks updateTask function
+- [X] T060 [US4] Add "Cancel" button to TaskEditForm (close dialog without saving)
+- [X] T061 [US4] Update useTasks updateTask to persist changes to IndexedDB via db.updateTask
+- [X] T062 [US4] Implement optimistic UI updates for task edit
 
 **Acceptance Criteria** (from spec.md):
 
@@ -267,13 +267,13 @@ Tasks marcadas com `[P]` podem ser executadas em paralelo quando não dependem d
 
 ### Tasks
 
-- [ ] T063 [US5] Add "Delete" button to TaskCard component (icon or text button, danger styling)
-- [ ] T064 [US5] Create DeleteConfirmation component using shadcn/ui AlertDialog
-- [ ] T065 [US5] Connect Delete button to open DeleteConfirmation dialog
-- [ ] T066 [US5] Connect DeleteConfirmation "Confirm" button to useTasks deleteTask function
-- [ ] T067 [US5] Update counters correctly after task deletion (via useTasks state)
-- [ ] T068 [US5] Update useTasks deleteTask to persist deletion to IndexedDB via db.deleteTask
-- [ ] T069 [US5] Implement optimistic UI updates for task deletion
+- [X] T063 [US5] Add "Delete" button to TaskCard component (icon or text button, danger styling)
+- [X] T064 [US5] Create DeleteConfirmation component using shadcn/ui AlertDialog
+- [X] T065 [US5] Connect Delete button to open DeleteConfirmation dialog
+- [X] T066 [US5] Connect DeleteConfirmation "Confirm" button to useTasks deleteTask function
+- [X] T067 [US5] Update counters correctly after task deletion (via useTasks state)
+- [X] T068 [US5] Update useTasks deleteTask to persist deletion to IndexedDB via db.deleteTask
+- [X] T069 [US5] Implement optimistic UI updates for task deletion
 
 **Acceptance Criteria** (from spec.md):
 
@@ -292,15 +292,15 @@ Tasks marcadas com `[P]` podem ser executadas em paralelo quando não dependem d
 
 ### Tasks
 
-- [ ] T070 [P] Add error toast/notification component for IndexedDB operation failures
-- [ ] T071 [P] Implement proper loading states for all async operations (create, move, edit, delete)
-- [ ] T072 [P] Add keyboard navigation support (Tab, Enter, Escape)
-- [ ] T073 [P] Ensure proper ARIA labels for all interactive elements
-- [ ] T074 [P] Add empty state messaging in columns when no tasks exist
-- [ ] T075 [P] Implement responsive design for tablets (min-width: 768px)
-- [ ] T076 [P] Add hover states and transitions for interactive elements
-- [ ] T077 [P] Test with 100+ tasks and optimize rendering if needed (consider virtualization)
-- [ ] T078 Run production build and verify bundle size < 500KB gzipped
+- [X] T070 [P] Add error toast/notification component for IndexedDB operation failures
+- [X] T071 [P] Implement proper loading states for all async operations (create, move, edit, delete)
+- [X] T072 [P] Add keyboard navigation support (Tab, Enter, Escape)
+- [X] T073 [P] Ensure proper ARIA labels for all interactive elements
+- [X] T074 [P] Add empty state messaging in columns when no tasks exist
+- [X] T075 [P] Implement responsive design for tablets (min-width: 768px)
+- [X] T076 [P] Add hover states and transitions for interactive elements
+- [X] T077 [P] Test with 100+ tasks and optimize rendering if needed (consider virtualization)
+- [X] T078 Run production build and verify bundle size < 500KB gzipped
 
 **Verification**: Run full manual test suite, accessibility audit (Lighthouse), performance test with many tasks, build size check.
 

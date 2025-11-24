@@ -3,7 +3,25 @@
     "allow": [
       "Bash(pwsh:*)",
       "Bash(test:*)",
-      "Bash(npx shadcn@latest add:*)"
+      "Bash(npx shadcn@latest add:*)",
+      "mcp__playwright__browser_navigate",
+      "mcp__playwright__browser_snapshot",
+      "mcp__playwright__browser_click",
+      "mcp__playwright__browser_type",
+      "mcp__playwright__browser_fill_form",
+      "mcp__playwright__browser_run_code",
+      "mcp__playwright__browser_evaluate",
+      "mcp__playwright__browser_take_screenshot",
+      "Bash(cat:*)",
+      "Bash(rm:*)",
+      "Bash(pkill:*)",
+      "Bash(taskkill:*)",
+      "mcp__playwright__browser_wait_for",
+      "mcp__context7__resolve-library-id",
+      "mcp__shadcn__get_item_examples_from_registries",
+      "mcp__context7__get-library-docs",
+      "mcp__context7__*",
+      "WebSearch"
     ],
     "deny": [],
     "ask": []
