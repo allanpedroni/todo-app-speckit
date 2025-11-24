@@ -21,7 +21,9 @@
       "mcp__shadcn__get_item_examples_from_registries",
       "mcp__context7__get-library-docs",
       "mcp__context7__*",
-      "WebSearch"
+      "WebSearch",
+      "mcp__playwright__browser_console_messages",
+      "mcp__playwright__browser_drag"
     ],
     "deny": [],
     "ask": []

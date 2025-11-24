@@ -27,15 +27,15 @@ interface CounterBadgeProps {
 }
 
 function CounterBadge({ label, count, status }: CounterBadgeProps) {
-  const bgColor = {
-    todo: 'bg-yellow-100 text-yellow-800 border-yellow-300',
-    doing: 'bg-green-100 text-green-800 border-green-300',
-    done: 'bg-green-100 text-green-800 border-green-300',
+  const statusStyles = {
+    todo: 'bg-todo-bg text-todo-text border-todo-text/30',
+    doing: 'bg-doing-bg text-doing-text border-doing-text/30',
+    done: 'bg-done-bg text-done-text border-done-text/30',
   }[status]
 
   return (
     <div
-      className={`px-4 py-2 rounded-lg border-2 font-semibold text-sm transition-colors ${bgColor}`}
+      className={`px-4 py-2 rounded-lg border font-semibold text-sm transition-colors ${statusStyles}`}
     >
       {label}: {count}
     </div>

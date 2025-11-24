@@ -1,134 +1,66 @@
-import type { Task, TaskStatus } from '@/lib/types'
+import { forwardRef } from 'react'
+import type { Task } from '@/lib/types'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
-import { Button } from '@/components/ui/button'
-import { ArrowRight, ArrowLeft, Edit, Trash2 } from 'lucide-react'
+import { TaskCardActions } from './TaskCardActions'
+import { Draggable } from '@hello-pangea/dnd'
+import { cn } from '@/lib/utils'
 
 interface TaskCardProps {
   task: Task
-  onMove: (taskId: string, newStatus: TaskStatus) => Promise<void>
+  index: number
   onEdit?: (task: Task) => void
   onDelete?: (taskId: string) => void
 }
 
 /**
- * TaskCard component - displays a task with title, description, and action buttons
- * Color changes based on task status (yellow for todo, green for doing/done)
+ * TaskCard component - displays a task with title, description, and action menu
+ * Supports drag-and-drop for moving between columns
  */
-export function TaskCard({ task, onMove, onEdit, onDelete }: TaskCardProps) {
+export function TaskCard({ task, index, onEdit, onDelete }: TaskCardProps) {
   const bgColor = {
     todo: 'bg-todo-bg',
     doing: 'bg-doing-bg',
     done: 'bg-done-bg',
   }[task.status]
 
-  const handleMove = async (newStatus: TaskStatus) => {
-    await onMove(task.id, newStatus)
-  }
+  const borderColor = {
+    todo: 'border-todo-text/20',
+    doing: 'border-doing-text/20',
+    done: 'border-done-text/20',
+  }[task.status]
 
   return (
-    <Card className={`${bgColor} border-gray-300 shadow-sm hover:shadow-md transition-shadow`}>
-      <CardHeader className="pb-3">
-        <CardTitle className="text-lg font-semibold text-gray-900">{task.title}</CardTitle>
-      </CardHeader>
-      <CardContent>
-        <p className="text-sm text-gray-700 whitespace-pre-wrap mb-4">{task.description}</p>
-
-        {/* Action Buttons */}
-        <div className="flex flex-wrap gap-2 mt-4">
-          {/* Edit and Delete Buttons */}
-          {onEdit && (
-            <Button
-              size="sm"
-              variant="secondary"
-              onClick={() => onEdit(task)}
-              className="text-xs"
-            >
-              <Edit className="w-3 h-3 mr-1" />
-              Edit
-            </Button>
+    <Draggable draggableId={task.id} index={index}>
+      {(provided, snapshot) => (
+        <Card
+          ref={provided.innerRef}
+          {...provided.draggableProps}
+          {...provided.dragHandleProps}
+          className={cn(
+            bgColor,
+            borderColor,
+            'shadow-sm transition-all cursor-grab active:cursor-grabbing',
+            snapshot.isDragging && 'shadow-xl ring-2 ring-primary/50 rotate-2 scale-105'
           )}
-          {onDelete && (
-            <Button
-              size="sm"
-              variant="destructive"
-              onClick={() => onDelete(task.id)}
-              className="text-xs"
-            >
-              <Trash2 className="w-3 h-3 mr-1" />
-              Delete
-            </Button>
-          )}
-          {/* Backward movement buttons */}
-          {task.status === 'doing' && (
-            <Button
-              size="sm"
-              variant="outline"
-              onClick={() => handleMove('todo')}
-              className="text-xs"
-            >
-              <ArrowLeft className="w-3 h-3 mr-1" />
-              To Do
-            </Button>
-          )}
-          {task.status === 'done' && (
-            <>
-              <Button
-                size="sm"
-                variant="outline"
-                onClick={() => handleMove('todo')}
-                className="text-xs"
-              >
-                <ArrowLeft className="w-3 h-3 mr-1" />
-                To Do
-              </Button>
-              <Button
-                size="sm"
-                variant="outline"
-                onClick={() => handleMove('doing')}
-                className="text-xs"
-              >
-                <ArrowLeft className="w-3 h-3 mr-1" />
-                Doing
-              </Button>
-            </>
-          )}
-
-          {/* Forward movement buttons */}
-          {task.status === 'todo' && (
-            <>
-              <Button
-                size="sm"
-                variant="default"
-                onClick={() => handleMove('doing')}
-                className="text-xs"
-              >
-                Doing
-                <ArrowRight className="w-3 h-3 ml-1" />
-              </Button>
-              <Button
-                size="sm"
-                variant="default"
-                onClick={() => handleMove('done')}
-                className="text-xs"
-              >
-                Done
-                <ArrowRight className="w-3 h-3 ml-1" />
-              </Button>
-            </>
-          )}
-          {task.status === 'doing' && (
-            <Button
-              size="sm"
-              variant="default"
-              onClick={() => handleMove('done')}
-              className="text-xs"
-            >
-              Done
-              <ArrowRight className="w-3 h-3 ml-1" />
-            </Button>
-          )}
-        </div>
-      </CardContent>
-    </Card>
+        >
+          <CardHeader className="pb-2 pr-10 relative">
+            <CardTitle className="text-base font-semibold text-foreground leading-tight">
+              {task.title}
+            </CardTitle>
+            <div className="absolute top-2 right-2">
+              <TaskCardActions
+                onEdit={onEdit ? () => onEdit(task) : undefined}
+                onDelete={onDelete ? () => onDelete(task.id) : undefined}
+              />
+            </div>
+          </CardHeader>
+          <CardContent className="pt-0">
+            <p className="text-sm text-muted-foreground whitespace-pre-wrap line-clamp-3">
+              {task.description}
+            </p>
+          </CardContent>
+        </Card>
+      )}
+    </Draggable>
   )
 }

@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import type { Task } from '@/lib/types'
+import type { Task, TaskStatus } from '@/lib/types'
 import { useTasks } from '@/hooks/useTasks'
 import { TaskCounters } from './TaskCounters'
 import { KanbanColumn } from './KanbanColumn'
@@ -8,10 +8,13 @@ import { TaskForm } from './TaskForm'
 import { TaskEditForm } from './TaskEditForm'
 import { DeleteConfirmation } from './DeleteConfirmation'
 import { Button } from '@/components/ui/button'
+import { DragDropContext } from '@hello-pangea/dnd'
+import type { DropResult } from '@hello-pangea/dnd'
 
 /**
  * KanbanBoard component - main container for the Kanban board
  * Displays title, task counters, and three columns (To Do, Doing, Done)
+ * Supports drag-and-drop for moving tasks between columns
  */
 export function KanbanBoard() {
   const {
@@ -35,7 +38,7 @@ export function KanbanBoard() {
   if (loading) {
     return (
       <div className="flex items-center justify-center min-h-screen">
-        <div className="text-xl text-gray-600">Loading tasks...</div>
+        <div className="text-xl text-muted-foreground">Loading tasks...</div>
       </div>
     )
   }
@@ -43,7 +46,7 @@ export function KanbanBoard() {
   if (error) {
     return (
       <div className="flex items-center justify-center min-h-screen">
-        <div className="text-xl text-red-600">Error: {error}</div>
+        <div className="text-xl text-destructive">Error: {error}</div>
       </div>
     )
   }
@@ -52,8 +55,23 @@ export function KanbanBoard() {
   const doingTasks = getTasksByStatus('doing')
   const doneTasks = getTasksByStatus('done')
 
-  const handleMoveTask = async (taskId: string, newStatus: import('@/lib/types').TaskStatus) => {
-    await moveTask({ id: taskId, newStatus })
+  const handleDragEnd = (result: DropResult) => {
+    const { destination, source, draggableId } = result
+
+    // Dropped outside any droppable
+    if (!destination) return
+
+    // Dropped in same position
+    if (
+      destination.droppableId === source.droppableId &&
+      destination.index === source.index
+    ) {
+      return
+    }
+
+    // Move task to new status
+    const newStatus = destination.droppableId as TaskStatus
+    moveTask({ id: draggableId, newStatus })
   }
 
   const handleEditTask = (task: Task) => {
@@ -80,7 +98,7 @@ export function KanbanBoard() {
   return (
     <div className="container mx-auto px-4 py-8 max-w-7xl">
       {/* Title */}
-      <h1 className="text-4xl font-bold text-center mb-8 text-gray-900">TO-DO</h1>
+      <h1 className="text-4xl font-bold text-center mb-8 text-foreground">TO-DO</h1>
 
       {/* Add Task Button */}
       <div className="flex justify-center mb-6">
@@ -96,56 +114,58 @@ export function KanbanBoard() {
         doneCount={getDoneCount()}
       />
 
-      {/* Kanban Columns */}
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-        <KanbanColumn title="To Do" status="todo">
-          {todoTasks.length === 0 ? (
-            <p className="text-gray-400 text-center mt-8">No tasks yet</p>
-          ) : (
-            todoTasks.map(task => (
-              <TaskCard
-                key={task.id}
-                task={task}
-                onMove={handleMoveTask}
-                onEdit={handleEditTask}
-                onDelete={handleDeleteTask}
-              />
-            ))
-          )}
-        </KanbanColumn>
+      {/* Kanban Columns with Drag and Drop */}
+      <DragDropContext onDragEnd={handleDragEnd}>
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+          <KanbanColumn title="To Do" status="todo">
+            {todoTasks.length === 0 ? (
+              <p className="text-muted-foreground text-center mt-8">No tasks yet</p>
+            ) : (
+              todoTasks.map((task, index) => (
+                <TaskCard
+                  key={task.id}
+                  task={task}
+                  index={index}
+                  onEdit={handleEditTask}
+                  onDelete={handleDeleteTask}
+                />
+              ))
+            )}
+          </KanbanColumn>
 
-        <KanbanColumn title="Doing" status="doing">
-          {doingTasks.length === 0 ? (
-            <p className="text-gray-400 text-center mt-8">No tasks yet</p>
-          ) : (
-            doingTasks.map(task => (
-              <TaskCard
-                key={task.id}
-                task={task}
-                onMove={handleMoveTask}
-                onEdit={handleEditTask}
-                onDelete={handleDeleteTask}
-              />
-            ))
-          )}
-        </KanbanColumn>
+          <KanbanColumn title="Doing" status="doing">
+            {doingTasks.length === 0 ? (
+              <p className="text-muted-foreground text-center mt-8">No tasks yet</p>
+            ) : (
+              doingTasks.map((task, index) => (
+                <TaskCard
+                  key={task.id}
+                  task={task}
+                  index={index}
+                  onEdit={handleEditTask}
+                  onDelete={handleDeleteTask}
+                />
+              ))
+            )}
+          </KanbanColumn>
 
-        <KanbanColumn title="Done" status="done">
-          {doneTasks.length === 0 ? (
-            <p className="text-gray-400 text-center mt-8">No tasks yet</p>
-          ) : (
-            doneTasks.map(task => (
-              <TaskCard
-                key={task.id}
-                task={task}
-                onMove={handleMoveTask}
-                onEdit={handleEditTask}
-                onDelete={handleDeleteTask}
-              />
-            ))
-          )}
-        </KanbanColumn>
-      </div>
+          <KanbanColumn title="Done" status="done">
+            {doneTasks.length === 0 ? (
+              <p className="text-muted-foreground text-center mt-8">No tasks yet</p>
+            ) : (
+              doneTasks.map((task, index) => (
+                <TaskCard
+                  key={task.id}
+                  task={task}
+                  index={index}
+                  onEdit={handleEditTask}
+                  onDelete={handleDeleteTask}
+                />
+              ))
+            )}
+          </KanbanColumn>
+        </div>
+      </DragDropContext>
 
       {/* Task Form Dialog */}
       <TaskForm open={isFormOpen} onOpenChange={setIsFormOpen} onSubmit={createTask} />

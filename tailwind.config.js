@@ -7,9 +7,12 @@ export default {
   theme: {
     extend: {
       colors: {
-        'todo-bg': '#fef3c7',
-        'doing-bg': '#dbeafe',
-        'done-bg': '#d1fae5',
+        'todo-bg': 'hsl(var(--status-todo-bg))',
+        'todo-text': 'hsl(var(--status-todo-text))',
+        'doing-bg': 'hsl(var(--status-doing-bg))',
+        'doing-text': 'hsl(var(--status-doing-text))',
+        'done-bg': 'hsl(var(--status-done-bg))',
+        'done-text': 'hsl(var(--status-done-text))',
         border: "hsl(var(--border))",
         input: "hsl(var(--input))",
         ring: "hsl(var(--ring))",
