@@ -100,13 +100,13 @@ Tasks marcadas com `[P]` podem ser executadas em paralelo quando não dependem d
 
 ### Tasks
 
-- [ ] T027 [US1] Create KanbanBoard component in src/components/KanbanBoard.tsx (main container, uses useTasks hook)
-- [ ] T028 [P] [US1] Create TaskCounters component in src/components/TaskCounters.tsx (displays 3 counters for each status)
-- [ ] T029 [P] [US1] Create KanbanColumn component in src/components/KanbanColumn.tsx (reusable column with title and children)
-- [ ] T030 [US1] Update src/App.tsx to render KanbanBoard component with "TO-DO" title
-- [ ] T031 [US1] Style KanbanBoard layout with Tailwind (flex, gap, responsive)
-- [ ] T032 [US1] Style TaskCounters component (horizontal layout, styled badges for each counter)
-- [ ] T033 [US1] Style KanbanColumn component (border, padding, min-height, flex column)
+- [X] T027 [US1] Create KanbanBoard component in src/components/KanbanBoard.tsx (main container, uses useTasks hook)
+- [X] T028 [P] [US1] Create TaskCounters component in src/components/TaskCounters.tsx (displays 3 counters for each status)
+- [X] T029 [P] [US1] Create KanbanColumn component in src/components/KanbanColumn.tsx (reusable column with title and children)
+- [X] T030 [US1] Update src/App.tsx to render KanbanBoard component with "TO-DO" title
+- [X] T031 [US1] Style KanbanBoard layout with Tailwind (flex, gap, responsive)
+- [X] T032 [US1] Style TaskCounters component (horizontal layout, styled badges for each counter)
+- [X] T033 [US1] Style KanbanColumn component (border, padding, min-height, flex column)
 
 **Acceptance Criteria** (from spec.md):
 

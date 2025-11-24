@@ -90,9 +90,12 @@ export type ValidationResult = {
  * Custom error classes
  */
 export class ValidationError extends Error {
-  constructor(public errors: string[]) {
+  errors: string[]
+
+  constructor(errors: string[]) {
     super(errors.join(', '))
     this.name = 'ValidationError'
+    this.errors = errors
   }
 }
 
@@ -104,8 +107,11 @@ export class NotFoundError extends Error {
 }
 
 export class StorageError extends Error {
-  constructor(message: string, public cause?: Error) {
+  cause?: Error
+
+  constructor(message: string, cause?: Error) {
     super(message)
     this.name = 'StorageError'
+    this.cause = cause
   }
 }
