@@ -44,21 +44,21 @@ Tasks marcadas com `[P]` podem ser executadas em paralelo quando não dependem d
 
 ### Tasks
 
-- [ ] T001 Create Vite project with React TypeScript template in project root
-- [ ] T002 [P] Install core dependencies (react, react-dom) via npm or pnpm
-- [ ] T003 [P] Install and configure Tailwind CSS (tailwindcss, postcss, autoprefixer) and create tailwind.config.js
-- [ ] T004 [P] Install IndexedDB wrapper (idb) via npm
-- [ ] T005 [P] Install shadcn/ui dependencies (class-variance-authority, clsx, tailwind-merge, lucide-react)
-- [ ] T006 Initialize shadcn/ui with `npx shadcn-ui@latest init` and create components.json
-- [ ] T007 Install shadcn/ui components (button, card, dialog, input, textarea, alert-dialog) via CLI
-- [ ] T008 [P] Configure TypeScript path aliases in tsconfig.json and vite.config.ts
-- [ ] T009 [P] Install testing dependencies (vitest, @vitest/ui, @testing-library/react, @testing-library/jest-dom, @testing-library/user-event, fake-indexeddb, jsdom)
-- [ ] T010 Create vitest.config.ts and test setup file at src/test/setup.ts
-- [ ] T011 [P] Install and configure ESLint and Prettier (.eslintrc.cjs, .prettierrc)
-- [ ] T012 Update package.json scripts (dev, build, preview, test, test:ui, lint, format)
-- [ ] T013 Create project folder structure (src/components/ui, src/lib, src/hooks, src/test)
-- [ ] T014 Configure Tailwind custom colors (todo-bg, doing-bg, done-bg) in tailwind.config.js
-- [ ] T015 Update src/index.css with Tailwind directives and base styles
+- [X] T001 Create Vite project with React TypeScript template in project root
+- [X] T002 [P] Install core dependencies (react, react-dom) via npm or pnpm
+- [X] T003 [P] Install and configure Tailwind CSS (tailwindcss, postcss, autoprefixer) and create tailwind.config.js
+- [X] T004 [P] Install IndexedDB wrapper (idb) via npm
+- [X] T005 [P] Install shadcn/ui dependencies (class-variance-authority, clsx, tailwind-merge, lucide-react)
+- [X] T006 Initialize shadcn/ui with `npx shadcn-ui@latest init` and create components.json
+- [X] T007 Install shadcn/ui components (button, card, dialog, input, textarea, alert-dialog) via CLI
+- [X] T008 [P] Configure TypeScript path aliases in tsconfig.json and vite.config.ts
+- [X] T009 [P] Install testing dependencies (vitest, @vitest/ui, @testing-library/react, @testing-library/jest-dom, @testing-library/user-event, fake-indexeddb, jsdom)
+- [X] T010 Create vitest.config.ts and test setup file at src/test/setup.ts
+- [X] T011 [P] Install and configure ESLint and Prettier (.eslintrc.cjs, .prettierrc)
+- [X] T012 Update package.json scripts (dev, build, preview, test, test:ui, lint, format)
+- [X] T013 Create project folder structure (src/components/ui, src/lib, src/hooks, src/test)
+- [X] T014 Configure Tailwind custom colors (todo-bg, doing-bg, done-bg) in tailwind.config.js
+- [X] T015 Update src/index.css with Tailwind directives and base styles
 
 **Verification**: Run `npm run dev` and confirm app starts without errors. Run `npm run lint` and `npm test` to verify tooling.
 
@@ -72,17 +72,17 @@ Tasks marcadas com `[P]` podem ser executadas em paralelo quando não dependem d
 
 ### Tasks
 
-- [ ] T016 Define TypeScript types and interfaces in src/lib/types.ts (Task, TaskStatus, CreateTaskInput, UpdateTaskInput, MoveTaskInput)
-- [ ] T017 Implement IndexedDB initialization and database schema in src/lib/db.ts (initDB with version 1, tasks object store)
-- [ ] T018 Implement withRetry utility function for IndexedDB operations in src/lib/db.ts
-- [ ] T019 Implement withTimeout utility function for IndexedDB operations in src/lib/db.ts
-- [ ] T020 Implement createTask function in src/lib/db.ts (with validation, ID generation, timestamps)
-- [ ] T021 [P] Implement getAllTasks function in src/lib/db.ts
-- [ ] T022 [P] Implement getTasksByStatus function in src/lib/db.ts
-- [ ] T023 [P] Implement updateTask function in src/lib/db.ts (with validation, updatedAt)
-- [ ] T024 [P] Implement deleteTask function in src/lib/db.ts
-- [ ] T025 [P] Implement moveTask function in src/lib/db.ts (wrapper for updateTask)
-- [ ] T026 Create custom useTasks hook in src/hooks/useTasks.ts (state management, load/create/update/delete/move operations)
+- [X] T016 Define TypeScript types and interfaces in src/lib/types.ts (Task, TaskStatus, CreateTaskInput, UpdateTaskInput, MoveTaskInput)
+- [X] T017 Implement IndexedDB initialization and database schema in src/lib/db.ts (initDB with version 1, tasks object store)
+- [X] T018 Implement withRetry utility function for IndexedDB operations in src/lib/db.ts
+- [X] T019 Implement withTimeout utility function for IndexedDB operations in src/lib/db.ts
+- [X] T020 Implement createTask function in src/lib/db.ts (with validation, ID generation, timestamps)
+- [X] T021 [P] Implement getAllTasks function in src/lib/db.ts
+- [X] T022 [P] Implement getTasksByStatus function in src/lib/db.ts
+- [X] T023 [P] Implement updateTask function in src/lib/db.ts (with validation, updatedAt)
+- [X] T024 [P] Implement deleteTask function in src/lib/db.ts
+- [X] T025 [P] Implement moveTask function in src/lib/db.ts (wrapper for updateTask)
+- [X] T026 Create custom useTasks hook in src/hooks/useTasks.ts (state management, load/create/update/delete/move operations)
 
 **Verification**: Run unit tests for db.ts functions (if tests created). Manually call `initDB()` in console to verify database creation.
 
